@@ -2,7 +2,7 @@
 
 ## О программе
 
-Утилита, производящяя анализ [access.log](https://ru.wikipedia.org/wiki/Access.lg).
+Утилита, производящяя анализ файлов формата [access.log](https://ru.wikipedia.org/wiki/Access.lg).
 
 
 На основании данного формата утилита может:
