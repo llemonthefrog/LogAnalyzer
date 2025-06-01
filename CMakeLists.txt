@@ -1,13 +1,24 @@
-cmake_minimum_required(VERSION 3.10.0)
-project(labwork1 VERSION 0.1.0 LANGUAGES C CXX)
-set(CMAKE_CXX_STANDARD 20)
+cmake_minimum_required(VERSION 3.10)
+project(LOGANALYZER)
 
-set(CMAKE_CXX_COMPILER clang++)
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-add_executable(AnalyzeLog src/main.cpp)
-target_include_directories(AnalyzeLog PUBLIC "${PROJECT_SOURCE_DIR}/src/log_parser")
-target_include_directories(AnalyzeLog PUBLIC "${PROJECT_SOURCE_DIR}/src/args_struct_new")
-target_include_directories(AnalyzeLog PUBLIC "${PROJECT_SOURCE_DIR}/src/statistic_struct")
-target_include_directories(AnalyzeLog PUBLIC "${PROJECT_SOURCE_DIR}/src/strs")
-target_include_directories(AnalyzeLog PUBLIC "${PROJECT_SOURCE_DIR}/src/time_stamp")
-target_include_directories(AnalyzeLog PUBLIC "${PROJECT_SOURCE_DIR}/src/error_logs")
+file(GLOB_RECURSE SOURCES
+    src/args_struct/*.cpp
+    src/error_logs/*.cpp
+    src/log_parser/*.cpp
+    src/strs/*.cpp
+    src/time_stamp/*.cpp
+    src/main.cpp
+)
+
+include_directories(
+    src/args_struct
+    src/error_logs
+    src/log_parser
+    src/strs
+    src/time_stamp
+)
+
+add_executable(${PROJECT_NAME} ${SOURCES})

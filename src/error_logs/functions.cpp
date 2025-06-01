@@ -1,18 +1,12 @@
 #include "error_logs.hpp"
-#include "strs.hpp"
-#include "args_struct.hpp"
-
-struct ErrorLog {
-    char Request[256];
-    uint32_t Count;
-};
-
 
 void init(const char* inputString, ErrorLog& err) {
     int i = 0;
+    
     for (i = 0; i < 256 - 1 && inputString[i] != '\0'; ++i) {
         err.Request[i] = inputString[i];
     }
+
     err.Request[i] = '\0';
     err.Count = 1;
 }

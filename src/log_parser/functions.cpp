@@ -1,17 +1,6 @@
-#include "args_struct.hpp"
 #include "log_parser.hpp"
-#include "time_stamp.hpp"
-#include "error_logs.hpp"
 
 #include <fstream>
-
-const uint32_t BUF_SIZE = 1024; 
-
-enum Lengths {
-    minLog = 50,
-    code = 3 + 1,
-    rawTime = 26 + 1,
-};
 
 uint32_t analyzeFifths(const Arguments& args) {
     std::ifstream inputStream;
@@ -21,8 +10,7 @@ uint32_t analyzeFifths(const Arguments& args) {
     outputStream.open(args.Path);
 
     if((!inputStream.is_open()) || (!outputStream.is_open())) {
-        std::cerr << "[ERROR] error while opening file\n";
-        exit(1);
+        throw std::runtime_error("[ERROR] error while opening file");
     }
 
     char buf[BUF_SIZE];
@@ -85,8 +73,7 @@ uint32_t AddErrors(ErrorLog* logs, const Arguments& args, const uint32_t size) {
     inputStream.open(args.Path);
 
     if(!inputStream.is_open()) {
-        std::cerr << "[ERROR] error while opening file\n";
-        exit(1);
+        throw std::runtime_error("[ERROR] error while opening file");
     }
 
     uint32_t entries = 0;
@@ -163,8 +150,7 @@ void fLongestPeriod(const Arguments& args) {
     std::ifstream input(args.File);
 
     if (!input.is_open()) {
-        std::cerr << "[ERROR] error while opening file\n";
-        exit(1);
+        throw std::runtime_error("[ERROR] error while opening file");
     }
 
     uint32_t max = 0;
@@ -231,5 +217,4 @@ void fLongestPeriod(const Arguments& args) {
     std::cout << "for window: " << args.Window << "\n";
     std::cout << "from " << startTime << " to " << endTime << " maximum will be: " << max;
     std::cout << "\n\n";
-
 }

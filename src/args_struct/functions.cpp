@@ -1,6 +1,4 @@
 #include "args_struct.hpp"
-#include "strs.hpp"
-#include <iostream>
 
 void compareLongFlag(char* token, char* arg, Arguments& args) {
     if(compareStrings(token, "--output")) {
@@ -22,8 +20,7 @@ void compareLongFlag(char* token, char* arg, Arguments& args) {
     } else if(compareStrings(token, "--print")) {
         args.Print = true;
     } else {
-        std::cout << "[FATAL] provided incorrect flag\n";
-        exit(1);
+        throw std::runtime_error("[FATAL] provided incorrect flag: " + std::string(token));
     }
 }
 
@@ -45,8 +42,7 @@ void compareFlag(char* token, char* arg, Arguments& args) {
     } else if(compareStrings(token, "-e")) {
         args.ETime = StringToUint(arg);
     } else {
-        std::cout << "[FATAL] provided incorrect flag\n";
-        exit(1);
+        throw std::runtime_error("[FATAL] provided incorrect flag: " + std::string(token));
     }
 }
 
@@ -77,8 +73,6 @@ void parseLongFlag(char* token, Arguments& args) {
         char arg[1];
         compareLongFlag(token, &arg[0], args);
     }
-
-
 }
 
 bool parseFlag(char* token, Arguments& args){
@@ -92,7 +86,6 @@ bool parseFlag(char* token, Arguments& args){
 
 
 void parseArgs(int argc, char** argv, Arguments& args) {
-
     bool skipNext = false;
     for(int i = 1; i < argc; i++) {
         if(!skipNext) {
@@ -112,5 +105,4 @@ void parseArgs(int argc, char** argv, Arguments& args) {
             skipNext = false;
         }
     }
-
 }
